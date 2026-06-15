@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://xpqab34o1ghi"]
+
+[ext_resource type="Script" uid="uid://bikywyi5asvoj" path="res://Crow.cs" id="1_f3sb7"]
+[ext_resource type="Script" uid="uid://j8pk6r2rf5lr" path="res://FollowCamera.cs" id="1_fj7yv"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_fj7yv"]
+sky_material = SubResource("ProceduralSkyMaterial_f3sb7")
+
+[sub_resource type="Environment" id="Environment_tlwt5"]
+background_mode = 2
+sky = SubResource("Sky_fj7yv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fj7yv"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_tlwt5"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f3sb7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_036b0"]
+
+[node name="World" type="Node3D" unique_id=1956295720]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1010614227]
+environment = SubResource("Environment_tlwt5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=411948312]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=848656758]
+script = ExtResource("1_fj7yv")
+TargetPath = NodePath("../Crow")
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1656094045]
+transform = Transform3D(1000, 0, 0, 0, 1, 0, 0, 0, 1000, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=138819644]
+shape = SubResource("BoxShape3D_fj7yv")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=332655491]
+mesh = SubResource("BoxMesh_tlwt5")
+
+[node name="Crow" type="RigidBody3D" parent="." unique_id=298815762]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+can_sleep = false
+script = ExtResource("1_f3sb7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Crow" unique_id=650673643]
+shape = SubResource("CapsuleShape3D_f3sb7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Crow" unique_id=2019722336]
+mesh = SubResource("CapsuleMesh_036b0")
