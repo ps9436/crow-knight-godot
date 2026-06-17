@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://xpqab34o1ghi"]
 
+[ext_resource type="Script" uid="uid://ddbhwks3ygg5u" path="res://Scenes/Camera3d.cs" id="1_8j60k"]
 [ext_resource type="Script" uid="uid://cl1tb8cpvdhfq" path="res://Scripts/Player.cs" id="2_fo5ed"]
 [ext_resource type="Texture2D" uid="uid://c72eq62aq7fik" path="res://Assets/Crow/(16bCharles)Idle Copy-Sheet.png" id="3_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://c216cwjrssri6" path="res://Assets/Sword/dragonslayer.glb" id="4_o06y3"]
@@ -79,9 +80,10 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=848656758]
-transform = Transform3D(0.8022372, 0.26950136, -0.5327143, -0.023724372, 0.90599716, 0.42261845, 0.5965339, -0.32640192, 0.7332183, -28.965, 30.24, 39.83)
+transform = Transform3D(0.809017, 0.24840888, -0.5327143, 0, 0.9063077, 0.42261842, 0.58778524, -0.3419055, 0.7332183, -28.965, 30.24, 39.83)
 projection = 1
-size = 46.729
+size = 45.0
+script = ExtResource("1_8j60k")
 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=1656094045]
 transform = Transform3D(8.115, 0, 0, 0, 8.115, 0, 0, 0, 8.115, 0, 0, 0)
