@@ -1,0 +1,120 @@
+[gd_scene format=3 uid="uid://xpqab34o1ghi"]
+
+[ext_resource type="Script" uid="uid://cl1tb8cpvdhfq" path="res://Scripts/Player.cs" id="2_fo5ed"]
+[ext_resource type="Texture2D" uid="uid://c72eq62aq7fik" path="res://Assets/Crow/(16bCharles)Idle Copy-Sheet.png" id="3_5ukr8"]
+[ext_resource type="PackedScene" uid="uid://c216cwjrssri6" path="res://Assets/Sword/dragonslayer.glb" id="4_o06y3"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_f3sb7"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_fj7yv"]
+sky_material = SubResource("ProceduralSkyMaterial_f3sb7")
+
+[sub_resource type="Environment" id="Environment_tlwt5"]
+background_mode = 2
+sky = SubResource("Sky_fj7yv")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_aqk2v"]
+offsets = PackedFloat32Array(0.96825397, 0.97619045, 0.99206346, 1)
+colors = PackedColorArray(1, 1, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_036b0"]
+gradient = SubResource("Gradient_aqk2v")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dwbse"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 1)
+albedo_texture = SubResource("GradientTexture2D_036b0")
+uv1_offset = Vector3(0, 0.5, 0)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pkg7o"]
+next_pass = SubResource("StandardMaterial3D_dwbse")
+albedo_color = Color(0.60081327, 0.7187336, 0.5789589, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_gbfbk"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fj7yv"]
+size = Vector3(1000, 1, 1000)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k7acu"]
+atlas = ExtResource("3_5ukr8")
+region = Rect2(0, 0, 20, 20)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5v1tr"]
+atlas = ExtResource("3_5ukr8")
+region = Rect2(20, 0, 20, 20)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aqk2v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k7acu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5v1tr")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f3sb7"]
+radius = 0.725
+height = 3.02
+
+[node name="World" type="Node3D" unique_id=1956295720]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1010614227]
+environment = SubResource("Environment_tlwt5")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=411948312]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=848656758]
+transform = Transform3D(0.8022372, 0.26950136, -0.5327143, -0.023724372, 0.90599716, 0.42261845, 0.5965339, -0.32640192, 0.7332183, -28.965, 30.24, 39.83)
+projection = 1
+size = 46.729
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1656094045]
+transform = Transform3D(8.115, 0, 0, 0, 8.115, 0, 0, 0, 8.115, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=332655491]
+material_override = SubResource("StandardMaterial3D_pkg7o")
+mesh = SubResource("BoxMesh_gbfbk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=138819644]
+shape = SubResource("BoxShape3D_fj7yv")
+debug_fill = false
+
+[node name="Player" type="RigidBody3D" parent="." unique_id=298815762]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.525, 0)
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+can_sleep = false
+script = ExtResource("2_fo5ed")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player" unique_id=1644390323]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0.85, 0)
+billboard = 1
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_aqk2v")
+animation = &"idle"
+autoplay = "idle"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=650673643]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37, 0)
+shape = SubResource("CapsuleShape3D_f3sb7")
+
+[node name="SwordPivot" type="Node3D" parent="Player" unique_id=839577827]
+
+[node name="dragonslayer" parent="Player/SwordPivot" unique_id=126549258 instance=ExtResource("4_o06y3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.813, -1.078, 3.203)
