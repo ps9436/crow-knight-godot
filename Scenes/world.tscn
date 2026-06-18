@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xpqab34o1ghi"]
 
-[ext_resource type="Script" uid="uid://ddbhwks3ygg5u" path="res://Scenes/Camera3d.cs" id="1_8j60k"]
+[ext_resource type="Script" uid="uid://ddbhwks3ygg5u" path="res://Scripts/Camera3d.cs" id="1_8j60k"]
 [ext_resource type="Script" uid="uid://cl1tb8cpvdhfq" path="res://Scripts/Player.cs" id="2_fo5ed"]
 [ext_resource type="Texture2D" uid="uid://c72eq62aq7fik" path="res://Assets/Crow/(16bCharles)Idle Copy-Sheet.png" id="3_5ukr8"]
 [ext_resource type="PackedScene" uid="uid://c216cwjrssri6" path="res://Assets/Sword/dragonslayer.glb" id="4_o06y3"]
@@ -68,7 +68,88 @@ animations = [{
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f3sb7"]
 radius = 0.725
-height = 3.02
+height = 3.1799219
+
+[sub_resource type="Animation" id="Animation_8j60k"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player/SwordPivot/Sword/dragonslayer:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1.813, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Player/SwordPivot/Sword/dragonslayer:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1.0780001, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Player/SwordPivot/Sword/dragonslayer:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2.3956804, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_fo5ed"]
+resource_name = "swing"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Player/SwordPivot/Sword/dragonslayer:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1.813, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Player/SwordPivot/Sword/dragonslayer:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-1.0780001, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../Player/SwordPivot/Sword/dragonslayer:position:z")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(2.3956804, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5ukr8"]
+_data = {
+&"RESET": SubResource("Animation_8j60k"),
+&"swing": SubResource("Animation_fo5ed")
+}
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8j60k"]
+size = Vector3(3.802536, 0.9395447, 18.178162)
 
 [node name="World" type="Node3D" unique_id=1956295720]
 
@@ -80,10 +161,13 @@ transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545
 shadow_enabled = true
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=848656758]
-transform = Transform3D(0.809017, 0.24840888, -0.5327143, 0, 0.9063077, 0.42261842, 0.58778524, -0.3419055, 0.7332183, -28.965, 30.24, 39.83)
+transform = Transform3D(0.809017, 0.24840888, -0.5327143, 0, 0.9063077, 0.42261842, 0.58778524, -0.3419055, 0.7332183, -28.965, 30.24, 39.77678)
 projection = 1
 size = 45.0
 script = ExtResource("1_8j60k")
+
+[node name="Camera3D2" type="Camera3D" parent="." unique_id=1551350718]
+transform = Transform3D(0.19936794, 0.12790585, -0.97154135, 0, 0.9914449, 0.1305262, 0.9799247, -0.02602274, 0.19766234, -9.59, 4.875, -0.516)
 
 [node name="Ground" type="StaticBody3D" parent="." unique_id=1656094045]
 transform = Transform3D(8.115, 0, 0, 0, 8.115, 0, 0, 0, 8.115, 0, 0, 0)
@@ -96,13 +180,14 @@ mesh = SubResource("BoxMesh_gbfbk")
 shape = SubResource("BoxShape3D_fj7yv")
 debug_fill = false
 
-[node name="Player" type="RigidBody3D" parent="." unique_id=298815762]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.525, 0)
+[node name="Player" type="RigidBody3D" parent="." unique_id=298815762 node_paths=PackedStringArray("SwordPivot")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.5, 0)
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
 can_sleep = false
 script = ExtResource("2_fo5ed")
+SwordPivot = NodePath("SwordPivot")
 
 [node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="Player" unique_id=1644390323]
 transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0.85, 0)
@@ -113,10 +198,21 @@ animation = &"idle"
 autoplay = "idle"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Player" unique_id=650673643]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.37, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.03540039, 0.45736885, 0.26057434)
 shape = SubResource("CapsuleShape3D_f3sb7")
 
-[node name="SwordPivot" type="Node3D" parent="Player" unique_id=839577827]
+[node name="SwordPivot" type="Node3D" parent="Player" unique_id=1579885023]
 
-[node name="dragonslayer" parent="Player/SwordPivot" unique_id=126549258 instance=ExtResource("4_o06y3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.813, -1.078, 3.203)
+[node name="Sword" type="Area3D" parent="Player/SwordPivot" unique_id=1418502647]
+transform = Transform3D(1, 0, 0, 0, 0.9993908, 0.03489949, 0, -0.03489949, 0.9993908, 0, 0, 0)
+
+[node name="dragonslayer" parent="Player/SwordPivot/Sword" unique_id=126549258 instance=ExtResource("4_o06y3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.813, -1.0780001, 2.3956804)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/SwordPivot/Sword/dragonslayer" unique_id=1318818003]
+root_node = NodePath("../../../../../Camera3D")
+libraries/ = SubResource("AnimationLibrary_5ukr8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/SwordPivot/Sword" unique_id=1902798661]
+transform = Transform3D(1, 0, 0, 0, 1.0000106, -7.8231096e-08, 0, 7.8231096e-08, 1.0000106, 0.29821014, -0.1412487, -11.518408)
+shape = SubResource("BoxShape3D_8j60k")
